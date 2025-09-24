@@ -1,9 +1,21 @@
 ----
 
-# glatos 0.9.0 dev (2025-09-12)
+# glatos 0.9.0 dev (2025-09-24)
 
 
 ### New features
+
+- Added support for GLATOS workbook version 1.4 (xlsx file) in 
+`read_glatos_workbook()`. 
+  - Excel workbooks in version 1.4 have no macros and have column headers 
+  in the first row (v. 1.3 has an empty first row and usually had macros).
+  - Added new input argument `simplify` which allows (when `simplify = TRUE`)
+  return of a list with the same structure as the input workbook (e.g., 
+  columns named "Deployment", "Recovery", "Tagging", ...). 
+  - Disallow multiple columns with the same name (returns an error). In earlier 
+  versions, a suffix was added to all but the first in each set of duplicate 
+  column names. 
+  - fixes [issue #272](https://github.com/ocean-tracking-network/glatos/issues/272)
 
 - Added support for parquet files in `read_otn_detections()`.
   - fixes [issue #254](https://github.com/ocean-tracking-network/glatos/issues/254)

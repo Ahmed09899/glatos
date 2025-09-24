@@ -4,55 +4,74 @@
 \alias{read_glatos_workbook}
 \title{Read data from a GLATOS project workbook}
 \usage{
-read_glatos_workbook(wb_file, read_all = FALSE, wb_version = NULL)
+read_glatos_workbook(
+  wb_file,
+  read_all = FALSE,
+  wb_version = NULL,
+  simplify = TRUE
+)
 }
 \arguments{
 \item{wb_file}{A character string with path and name of workbook in standard
-GLATOS format (*.xlsm). If only file name is given, then the file must be
-located in the working directory. File must be a standard GLATOS file
-(e.g., \emph{xxxxx_GLATOS_YYYYMMDD.xlsm}) submitted via GLATOSWeb Data Portal
-\url{http://glatos.glos.us}.}
+GLATOS format (.xlsm or .xlsx). If only file name is given, then the file
+must be located in the working directory. See the GLATOSWeb Data
+Portal \url{https://glatos.glos.us} for file format definitions.}
 
 \item{read_all}{If TRUE, then all columns and sheets (e.g., user-created
 "project-specific" columns or sheets) in the workbook will be imported. If
 FALSE (default value) then only columns and sheets in the standard GLATOS
-workbook will be imported (project-specific columns will be ignored.)}
+workbook will be imported (project-specific columns will be ignored).}
 
 \item{wb_version}{An optional character string with the workbook version
 number. If NULL (default value) then version will be determined by
 evaluating workbook structure. Currently, the only allowed values are
-\code{NULL} and \code{"1.3"}. Any other values will trigger an error.}
+\code{NULL}, \code{"1.3"}, and \code{"1.4"}. See Details. Any other values will trigger
+an error.}
+
+\item{simplify}{If TRUE (default value), then the returned object is a
+\code{glatos_workbook} object. If FALSE, then the returned object is a list with
+an element for each sheet in \code{wb_file}. See Details.}
 }
 \value{
-A list of class \code{glatos_workbook} with three elements (described
-below) containing data from the standard GLATOS Workbook sheets. If
-\code{read_all = TRUE}, then additional elements will be added with names
-corresponding to non-standard sheet names.
+If \code{simplify = TRUE}, a list of class \code{glatos_workbook} with three
+elements (described below) containing data from the standard GLATOS
+Workbook sheets. If \code{read_all = TRUE}, then additional elements will be
+added with names corresponding to non-standard sheet names.
 \describe{
 \item{metadata}{A list with data about the project and workbook.}
 \item{animals}{A data frame of class \code{glatos_animals} with data about
 tagged animals.}
 \item{receivers}{A data frame of class \code{glatos_receivers} with data
 about telemetry receivers.}
+
+If \code{simplify = FALSE}, a list (class = \code{list}) with one element for each
+sheet in \code{wb_file}.
 }
 }
 \description{
-Read data from a GLATOS project workbook (xlsm or xlsx file) and return a
-list of class \code{glatos_workbook}.
+Read data from a GLATOS project workbook (xlsm or xlsx file).
 }
 \details{
-In the standard glatos workbook (v1.3), data in workbook sheets
-'Deployment', 'Recovery', and 'Location' are merged on columns
-'GLATOS_PROJECT', 'GLATOS_ARRAY', 'STATION_NO', 'CONSECUTIVE_DEPLOY_NO',
-AND 'INS_SERIAL_NO' to produce the output data frame \code{receivers}. Data in
-workbook sheets 'Project' and 'Tagging' are passed through to new data
-frames named 'project' and 'animals', respectively, and data from workbook
-sheet 'Proposed' is not included in result. If \code{read_all = TRUE} then each
-sheet in workbook will be included in result.
+When \code{simplify = TRUE}, data in workbook sheets 'Deployment',
+'Recovery', and 'Location' are merged on columns 'GLATOS_PROJECT',
+'GLATOS_ARRAY', 'STATION_NO', 'CONSECUTIVE_DEPLOY_NO', AND 'INS_SERIAL_NO'
+to produce the output data frame \code{receivers}. Data in workbook sheets
+'Project' and 'Tagging' are passed through to new data frames named
+'project' and 'animals', respectively, and data from workbook sheet
+'Proposed' is not included in result. When \code{simplify = FALSE}, data in all
+sheets in the standard workbook are passed through to new data frames with
+like names (e.g., 'location', 'deployment', 'recovery').
+
+If \code{read_all = TRUE} then each sheet not included in the standard
+workbook (e.g., not named 'Project', 'Location', 'Deployment', 'Recovery',
+or 'Tagging') will be included as an element of the returned list; and in
+standard workbook sheets, any non-standard columns (i.e, 'project-specific
+fields') will be included in the result. Names of non-standard columns
+may be changed (e.g., for uniqueness), with warnings.
 
 Data are read from the input file using
 \link[readxl:read_excel]{read_excel} in the 'readxl' package. If \code{read_all = TRUE} then the type of data in each user-defined column (and sheet) will be
-'guessed' by \link[readxl:read_excel]{read_excel}. Therefore, if \code{read_all = TRUE} then the structure of those columnns should be carefully reviewed in
+'guessed' by \link[readxl:read_excel]{read_excel}. Therefore, if \code{read_all = TRUE} then the structure of those columns should be carefully reviewed in
 the result. See \link[readxl:read_excel]{read_excel} for details.
 
 Column \code{animal_id} is considered a required column by many other
@@ -63,6 +82,11 @@ When created, it will be constructed from \code{tag_code_space} and
 Timezone attribute of all timestamp columns (class \code{POSIXct}) in
 output will be "UTC" and all 'glatos-specific' timestamp and timezone
 columns will be omitted from result.
+
+As of glatos 0.9.0, if a sheet contains two columns with the same
+name, then the sheet is not loaded and an error is returned. In earlier
+versions, a suffix was added to all but the first in each set of
+duplicate column names.
 }
 \note{
 \emph{\strong{On warnings and errors about date and timestamp formats.}} Date and
@@ -76,7 +100,9 @@ warning points the user to those records in the workbook. Users may want to
 format as custom date in the workbook to avoid warnings in the future. \cr
 \cr 2. If the format of a date-as-text column is not consistent with GLATOS
 specification, then no data will be loaded and an error will alert the user
-to this condition. \cr \cr
+to this condition. Similarly, if a date or date-time column is stored
+as a number in Excel, then no data will be loaded and an error will alert
+the user to this condition.\cr \cr
 \emph{\strong{On cells with locked formatting in Excel:}} Occasionally the
 format of a cell in Excel will be locked. In those cases, it is sometimes
 possible to force date formatting in Excel by (1) highlighting the columns
@@ -85,6 +111,9 @@ that need reformatting, (2) select 'Text-to-columns' in the 'Data' menu,
 (5) choose 'Date: YMD' in the 'Column data format' box, and (6) 'Finish'.
 }
 \examples{
+
+# Example 1: Version 1.3 (xlsm)
+
 # get path to example GLATOS Data Workbook
 wb_file <- system.file("extdata",
   "walleye_workbook.xlsm",
@@ -93,9 +122,24 @@ wb_file <- system.file("extdata",
 
 # note that code above is needed to find the example file
 # for real glatos data, use something like below
-# wb_file <- "c:/path_to_file/HECWL_GLATOS_20150321.csv"
+# wb_file <- "c:/path_to_file/HECWL_GLATOS_20150321.xlsm"
 
 wb <- read_glatos_workbook(wb_file)
+
+wbr <- read_glatos_workbook(wb_file, simplify = FALSE)
+
+
+# Example 2: Version 1.4 (xlsx)
+
+wb2_file <- system.file("extdata",
+  "walleye_workbook.xlsx",
+  package = "glatos"
+) 
+
+wb2 <- read_glatos_workbook(wb2_file)
+
+wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
+
 
 }
 \seealso{

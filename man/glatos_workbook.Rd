@@ -12,7 +12,7 @@ glatos_workbook(x)
 }
 \value{
 A list of class \code{glatos_workbook} created from a standard GLATOS
-data workbook (*.xlsm) file with three elements:
+data workbook (*.xlsx or *.xlsm) file with three elements:
 \describe{
 \item{metadata}{A list with data about the project.}
 \item{animals}{A data frame with data about tagged animals.}
@@ -25,6 +25,6 @@ Currently barebones and only used inside read_glatos_workbook.
 }
 \note{
 This function may be developed in the future to dictate conversion
-constuction from a data frame.
+construction from a data frame.
 }
 \keyword{internal}
