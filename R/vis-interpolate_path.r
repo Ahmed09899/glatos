@@ -200,13 +200,14 @@
 #' @export
 
 interpolate_path <- function(
-    det,
-    trans = NULL,
-    start_time = NULL,
-    int_time_stamp = 86400,
-    lnl_thresh = 0.9,
-    out_class = NULL,
-    show_progress = TRUE) {
+  det,
+  trans = NULL,
+  start_time = NULL,
+  int_time_stamp = 86400,
+  lnl_thresh = 0.9,
+  out_class = NULL,
+  show_progress = TRUE
+) {
   ##  Declare global variables for NSE & R CMD check
   detection_timestamp_utc <- record_type <- num_rows <- animal_id <- bin <-
     bin_stamp <- i_lat <- deploy_lat <- i_lon <- deploy_long <-

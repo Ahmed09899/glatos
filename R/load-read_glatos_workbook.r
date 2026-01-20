@@ -134,10 +134,11 @@
 #'
 #' @export
 read_glatos_workbook <- function(
-    wb_file,
-    read_all = FALSE,
-    wb_version = NULL,
-    simplify = TRUE) {
+  wb_file,
+  read_all = FALSE,
+  wb_version = NULL,
+  simplify = TRUE
+) {
   # See version-specific file specifications
   # internal glatos_workbook_spec in R/sysdata.r
 
@@ -433,7 +434,6 @@ read_glatos_workbook <- function(
     } # end i
 
 
-
     # Collect warnings across sheets
     warn <- c(
       attr(wb[["locations"]], "warn"),
@@ -681,7 +681,6 @@ read_glatos_workbook <- function(
     #   } # end j
     #
     # } # end i
-
 
 
     if (simplify == FALSE) {

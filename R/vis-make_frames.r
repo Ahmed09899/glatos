@@ -208,21 +208,22 @@
 #' @export
 
 make_frames <- function(
-    proc_obj,
-    recs = NULL,
-    out_dir = getwd(),
-    background_ylim = c(41.3, 49.0),
-    background_xlim = c(-92.45, -75.87),
-    show_interpolated = TRUE,
-    tail_dur = 0,
-    animate = TRUE,
-    ani_name = "animation.mp4",
-    frame_delete = FALSE,
-    overwrite = FALSE,
-    preview = FALSE,
-    bg_map = NULL,
-    show_progress = TRUE,
-    ...) {
+  proc_obj,
+  recs = NULL,
+  out_dir = getwd(),
+  background_ylim = c(41.3, 49.0),
+  background_xlim = c(-92.45, -75.87),
+  show_interpolated = TRUE,
+  tail_dur = 0,
+  animate = TRUE,
+  ani_name = "animation.mp4",
+  frame_delete = FALSE,
+  overwrite = FALSE,
+  preview = FALSE,
+  bg_map = NULL,
+  show_progress = TRUE,
+  ...
+) {
   # NOTE: As of glatos v 0.4.1, the package no longer uses the external program ffmpeg.  Input argument 'ffmpeg' has been removed"
 
   #  Declare global variables for NSE & R CMD check

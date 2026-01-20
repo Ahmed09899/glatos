@@ -36,10 +36,11 @@
 #' @export
 
 prepare_deploy_sheet <- function(
-    path,
-    header_line = 5,
-    sheet_name = 1,
-    combine_arr_stn = TRUE) {
+  path,
+  header_line = 5,
+  sheet_name = 1,
+  combine_arr_stn = TRUE
+) {
   ##  Declare global variables for NSE & R CMD check
   DEPLOY_LAT <- DEPLOY_LONG <- INS_MODEL_NO <-
     `DEPLOY_DATE_TIME   (yyyy-mm-ddThh:mm:ss)` <-

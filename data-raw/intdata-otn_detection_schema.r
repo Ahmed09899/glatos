@@ -31,12 +31,6 @@ otn_detection_schema_min_columns <- c(
 )
 
 
-
-
-
-
-
-
 # OTN pre-2025
 
 otn_detection_schema_old <- read.table(

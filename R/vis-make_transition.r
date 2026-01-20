@@ -180,11 +180,12 @@
 #'
 #' @export
 make_transition <- function(
-    poly,
-    res,
-    receiver_points = NULL,
-    epsg = 3175,
-    buffer = NULL) {
+  poly,
+  res,
+  receiver_points = NULL,
+  epsg = 3175,
+  buffer = NULL
+) {
   if (
     inherits(
       poly,
@@ -542,12 +543,13 @@ scale_meters_to_degrees <- function(x, sf, ref = "center", epsg = 3175) {
 #'
 #' @export
 jarasterize <- function(
-    x,
-    res,
-    value = 1,
-    bg_value = 0,
-    all_touched = TRUE,
-    silent = FALSE) {
+  x,
+  res,
+  value = 1,
+  bg_value = 0,
+  all_touched = TRUE,
+  silent = FALSE
+) {
   ##  Declare global variables for NSE & R CMD check
   lat_id <- line_type <- lon_id <- rast_cell <- x1 <- x1cell <- x2 <-
     x2cell <- x_cell <- y1 <- y1cell <- y2 <- y2cell <- y_cell <- NULL

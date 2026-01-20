@@ -80,11 +80,12 @@ NULL
 #'
 #' @export
 vrl2csv <- function(
-    vrl,
-    outDir = NA,
-    overwrite = TRUE,
-    vueExePath = NA,
-    showProgress = TRUE) {
+  vrl,
+  outDir = NA,
+  overwrite = TRUE,
+  vueExePath = NA,
+  showProgress = TRUE
+) {
   .Deprecated("vue_convert")
 
   # check path to VUE.exe if given

@@ -178,16 +178,17 @@
 #' @export
 
 crw_in_polygon <- function(
-    polyg,
-    theta = c(0, 10),
-    stepLen = 100,
-    initPos = c(NA, NA),
-    initHeading = NA,
-    nsteps = 30,
-    inputCRS = NA,
-    cartesianCRS = NA,
-    sp_out = TRUE,
-    show_progress = TRUE) {
+  polyg,
+  theta = c(0, 10),
+  stepLen = 100,
+  initPos = c(NA, NA),
+  initHeading = NA,
+  nsteps = 30,
+  inputCRS = NA,
+  cartesianCRS = NA,
+  sp_out = TRUE,
+  show_progress = TRUE
+) {
   # Check input class
   if (
     !inherits(
