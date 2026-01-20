@@ -66,10 +66,9 @@ cast(x, "character", old_class = c("character", "POSIXct"))
 
 # Bad (unsupported) new_class
 cast(x, "foo")
- 
+
 # Bad (unsupported) old_class
 cast(x, "character", old_class = c("character", "foo"))
-
 }
 
 }

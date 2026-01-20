@@ -134,12 +134,11 @@ wbr <- read_glatos_workbook(wb_file, simplify = FALSE)
 wb2_file <- system.file("extdata",
   "walleye_workbook.xlsx",
   package = "glatos"
-) 
+)
 
 wb2 <- read_glatos_workbook(wb2_file)
 
 wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
-
 
 }
 \seealso{

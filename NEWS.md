@@ -1,6 +1,6 @@
 ----
 
-# glatos 0.9.0 dev (2025-09-24)
+# glatos 0.9.0 (2026-01-20)
 
 
 ### New features

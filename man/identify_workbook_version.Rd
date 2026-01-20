@@ -43,7 +43,7 @@ identify_workbook_version(wb_file)
 wb2_file <- system.file("extdata",
   "walleye_workbook.xlsx",
   package = "glatos"
-) 
+)
 
 identify_workbook_version(wb2_file)
 

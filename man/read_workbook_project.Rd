@@ -45,7 +45,7 @@ read_workbook_project(wb_file)
 wb2_file <- system.file("extdata",
   "walleye_workbook.xlsx",
   package = "glatos"
-) 
+)
 
 read_workbook_project(wb2_file)
 
