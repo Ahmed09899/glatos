@@ -20,7 +20,7 @@ maintainer (Chris Holbrook): <cholbrook@usgs.gov>.
 
 ### Installation
 
-To install the latest release (0.9.0 'pretty-fragrant-rye'): 
+To install the latest release (0.9.1 'pretty-fragrant-rye'): 
   
 ```{r eval = FALSE}
 library(remotes) # for install_github
