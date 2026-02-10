@@ -131,9 +131,8 @@
 #' wb2 <- read_glatos_workbook(wb2_file)
 #'
 #' wb2a <- read_glatos_workbook(wb2_file, read_all = TRUE)
-#' 
+#'
 #' wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
-#' 
 #'
 #' @import readxl
 #'
@@ -163,8 +162,7 @@ read_glatos_workbook <- function(
 
   #-Workbook v1.3, v1.4--------------------------------------------------------------
   if (wb_version %in% c("1.3", "1.4")) {
-   
-     # Get sheet names in external file
+    # Get sheet names in external file
     wb_sheets <- readxl::excel_sheets(wb_file)
 
 
@@ -196,7 +194,6 @@ read_glatos_workbook <- function(
     )
 
     for (i in 1:length(sheets_to_read)) {
-    
       schema_i <- glatos_workbook_schema[["v1.3"]][[tolower(sheets_to_read[i])]]
 
       # Specify first row to read (with headers)
@@ -286,7 +283,6 @@ read_glatos_workbook <- function(
 
 
       if (nrow(sheet_i) > 0) {
-        
         # Add attribute for warnings and errors
         # warnings are warning_cast_to_check
         # errors are error_input_class_skipped and error_cast_failed
@@ -319,7 +315,7 @@ read_glatos_workbook <- function(
           )
         }
 
-        
+
         # POSIXct
 
         # Only support POSIXct or character string that parses correctly
@@ -329,7 +325,6 @@ read_glatos_workbook <- function(
           with(schema_i, name[type == "POSIXct"])]
 
         for (j in posix_cols) {
-          
           # cast existing POSIXct or character to character
           sheet_i2[[j]] <- cast(sheet_i[[j]],
             new_class = "character",
@@ -392,9 +387,7 @@ read_glatos_workbook <- function(
       extra_cols <- setdiff(tolower(col_names_i), schema_i$name)
 
       if (read_all) {
-        
         if (nrow(sheet_i) > 0) {
-          
           supported_classes <- c(
             "POSIXct",
             "Date",
@@ -404,7 +397,6 @@ read_glatos_workbook <- function(
           )
 
           for (j in extra_cols) {
-            
             types_ij <- unique(unlist(lapply(sheet_i[[j]], class)))
 
             # expect 'highest-level' observed class
@@ -444,19 +436,22 @@ read_glatos_workbook <- function(
 
         names(wb[[tolower(sheets_to_read[i])]])[std_names_index] <- schema_i$name
       }
-      
-      
-      if(i == 1) { wb_err <- err_i } else wb_err <- c(wb_err, err_i)
-      
+
+
+      if (i == 1) {
+        wb_err <- err_i
+      } else {
+        wb_err <- c(wb_err, err_i)
+      }
     } # end i
 
 
     # Collect warnings across sheets
-    
-    #attr(sheet_i2, "warning_cast_to_check"); #cast
-    #attr(sheet_i2, "error_input_class_skipped") 
-    #attr(sheet_i2, "error_cast_failed") 
-    
+
+    # attr(sheet_i2, "warning_cast_to_check"); #cast
+    # attr(sheet_i2, "error_input_class_skipped")
+    # attr(sheet_i2, "error_cast_failed")
+
     warn <- c(
       attr(wb[["locations"]], "warn"),
       attr(wb[["proposed"]], "warn"),
@@ -684,8 +679,7 @@ cast <- function(x,
                  ),
                  defer_exceptions = TRUE,
                  ...) {
-  
-  #args_in <- list()
+  # args_in <- list()
   args_in <- list(...)
 
   x_class <- sapply(x, function(x) class(x)[1])
@@ -850,7 +844,7 @@ cast <- function(x,
     )
   }
 
-  
+
   if (!defer_exceptions) {
     if (length(warning_cast_to_check) > 0) {
       warning(
@@ -875,9 +869,9 @@ cast <- function(x,
   }
 
   return(structure(x2,
-   error_input_class_skipped = error_input_class_skipped,
-   error_cast_failed = error_cast_failed,
-   warning_cast_to_check = warning_cast_to_check
+    error_input_class_skipped = error_input_class_skipped,
+    error_cast_failed = error_cast_failed,
+    warning_cast_to_check = warning_cast_to_check
   ))
 }
 
