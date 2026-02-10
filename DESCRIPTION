@@ -9,7 +9,6 @@ Imports:
 		av,
 		data.table,
 		dplyr,
-		cellranger,
 		geodist,
 		gdistance,
 		jsonlite,

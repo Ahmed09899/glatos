@@ -149,9 +149,6 @@ read_glatos_workbook <- function(
   # to avoid R CMD CHECK note "undefined global functions or variables"
   extra_sheets <- NULL
 
-  # temporary remapping to internal data (for use externally)
-  glatos_workbook_schema <- glatos:::glatos_workbook_schema
-
 
   # Get and check version if specified
   wb_version <- identify_workbook_version(
@@ -212,7 +209,7 @@ read_glatos_workbook <- function(
           readxl::read_excel(
             wb_file,
             sheet = sheets_to_read[i],
-            range = cellranger::cell_limits(
+            range = readxl::cell_limits(
               ul = c(xl_first_row, 1),
               lr = c(NA, xl_last_col)
             ),
@@ -596,11 +593,9 @@ read_glatos_workbook <- function(
   #-end v1.3, v1.4----------------------------------------------------------------
 
   # assign classes
-  wb2$animals <- glatos::as_glatos_animals(wb2$animals)
-  wb2$receivers <- glatos::as_glatos_receivers(wb2$receivers)
+  wb2$animals <- as_glatos_animals(wb2$animals)
+  wb2$receivers <- as_glatos_receivers(wb2$receivers)
 
-  # temporary mapping internal function for external use
-  glatos_workbook <- glatos:::glatos_workbook
   wb2 <- glatos_workbook(wb2)
 
   return(wb2)
