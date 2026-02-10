@@ -1,5 +1,18 @@
 ----
 
+# glatos 0.9.1 (2026-02-10)
+
+
+### Bug fixes
+
+- Fixed bug in `read_glatos_workbook()` that caused failure when 
+`read_all = TRUE`; with "Error: The following column(s) have wrong class: 
+ utc_release_date_time (must be 'POSIXct').".
+  - fixes [issue #274](https://github.com/ocean-tracking-network/glatos/issues/274)
+
+
+----
+
 # glatos 0.9.0 (2026-01-20)
 
 

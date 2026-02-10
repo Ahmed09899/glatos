@@ -24,7 +24,7 @@ be cast to \code{new_class}. Any record with a different class will result in NA
 \item{defer_exceptions}{If TRUE (default value) then errors and warnings will
 be returned as attributes with prefix "error_" or "warning_".}
 
-\item{...}{Other arguments passed to the casting function (e.g., \code{tz = "US/Eastern"} when \code{new_class} is \code{POSIXct}.}
+\item{...}{Other arguments passed to the casting function (e.g., \code{tz = "US/Eastern"} when \code{new_class} is \code{POSIXct}).}
 }
 \value{
 A vector of length same as \code{x} and class as \code{new_class}.

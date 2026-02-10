@@ -116,6 +116,8 @@
 #'
 #' wb <- read_glatos_workbook(wb_file)
 #'
+#' wba <- read_glatos_workbook(wb_file, read_all = TRUE)
+#'
 #' wbr <- read_glatos_workbook(wb_file, simplify = FALSE)
 #'
 #'
@@ -128,7 +130,10 @@
 #'
 #' wb2 <- read_glatos_workbook(wb2_file)
 #'
+#' wb2a <- read_glatos_workbook(wb2_file, read_all = TRUE)
+#' 
 #' wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
+#' 
 #'
 #' @import readxl
 #'
@@ -158,7 +163,8 @@ read_glatos_workbook <- function(
 
   #-Workbook v1.3, v1.4--------------------------------------------------------------
   if (wb_version %in% c("1.3", "1.4")) {
-    # Get sheet names in external file
+   
+     # Get sheet names in external file
     wb_sheets <- readxl::excel_sheets(wb_file)
 
 
@@ -190,6 +196,7 @@ read_glatos_workbook <- function(
     )
 
     for (i in 1:length(sheets_to_read)) {
+    
       schema_i <- glatos_workbook_schema[["v1.3"]][[tolower(sheets_to_read[i])]]
 
       # Specify first row to read (with headers)
@@ -279,6 +286,7 @@ read_glatos_workbook <- function(
 
 
       if (nrow(sheet_i) > 0) {
+        
         # Add attribute for warnings and errors
         # warnings are warning_cast_to_check
         # errors are error_input_class_skipped and error_cast_failed
@@ -311,6 +319,7 @@ read_glatos_workbook <- function(
           )
         }
 
+        
         # POSIXct
 
         # Only support POSIXct or character string that parses correctly
@@ -320,6 +329,7 @@ read_glatos_workbook <- function(
           with(schema_i, name[type == "POSIXct"])]
 
         for (j in posix_cols) {
+          
           # cast existing POSIXct or character to character
           sheet_i2[[j]] <- cast(sheet_i[[j]],
             new_class = "character",
@@ -382,7 +392,9 @@ read_glatos_workbook <- function(
       extra_cols <- setdiff(tolower(col_names_i), schema_i$name)
 
       if (read_all) {
+        
         if (nrow(sheet_i) > 0) {
+          
           supported_classes <- c(
             "POSIXct",
             "Date",
@@ -391,7 +403,8 @@ read_glatos_workbook <- function(
             "logical"
           )
 
-          for (j in posix_cols) {
+          for (j in extra_cols) {
+            
             types_ij <- unique(unlist(lapply(sheet_i[[j]], class)))
 
             # expect 'highest-level' observed class
@@ -431,10 +444,19 @@ read_glatos_workbook <- function(
 
         names(wb[[tolower(sheets_to_read[i])]])[std_names_index] <- schema_i$name
       }
+      
+      
+      if(i == 1) { wb_err <- err_i } else wb_err <- c(wb_err, err_i)
+      
     } # end i
 
 
     # Collect warnings across sheets
+    
+    #attr(sheet_i2, "warning_cast_to_check"); #cast
+    #attr(sheet_i2, "error_input_class_skipped") 
+    #attr(sheet_i2, "error_cast_failed") 
+    
     warn <- c(
       attr(wb[["locations"]], "warn"),
       attr(wb[["proposed"]], "warn"),
@@ -448,7 +470,7 @@ read_glatos_workbook <- function(
 
     # Collect errors across sheets
     err <- c(
-      err_i,
+      wb_err,
       attr(wb[["locations"]], "err"),
       attr(wb[["proposed"]], "err"),
       attr(wb[["deployment"]], "err"),
@@ -461,227 +483,6 @@ read_glatos_workbook <- function(
         call. = FALSE
       )
     }
-
-
-    # PICK UP HERE
-    #
-    #   if (!read_all) {
-    #     # subset only columns in schema (by name)
-    #     # - use match so that first column with each name is selected if > 1
-    #     #tmp <- tmp[, match(schema_i$name, tolower(prj_cols_i))]
-    #
-    #     cols_to_read_i <- 1:length(std_cols_i)
-    #
-    #   } else {
-    #
-    #     # identify project-specific fields
-    #     extra_cols_i <- col_names_i[(length(schema_i$name) + 1):length(col_names_i)]
-    #
-    #     # identify new columns to add
-    #     if (length(extra_cols_i) > 0) {
-    #
-    #       # count column names to identify and rename any conflicting
-    #       col_counts <- table(tolower(col_names_i))
-    #       conflict_cols <- col_counts[col_counts > 1]
-    #
-    #       if (length(conflict_cols) > 0) {
-    #         # rename conflict cols
-    #         for (k in 1:length(conflict_cols)) {
-    #           name_k <- names(conflict_cols)[k]
-    #           extra_names_k <- c(
-    #             name_k,
-    #             paste0(name_k, "_x", 1:(conflict_cols[k] - 1))
-    #           )
-    #           names(tmp)[tolower(colnames(tmp)) == name_k] <- extra_names_k
-    #
-    #           warning(paste0(
-    #             "Non-standard (project-specific) columns ",
-    #             "were found with names matching standard \n  column names ",
-    #             "in sheet '", sheets_to_read[i], "'.\n\n  The following ",
-    #             "column names were assigned to avoid conflicts:",
-    #             "\n    ", paste0(extra_names_k, collapse = ", "), "."
-    #           ))
-    #         }
-    #       } # end if
-    #     }
-    #   } # end if else
-    #
-    #   # make column names lowercase
-    #   names(tmp) <- tolower(names(tmp))
-    #
-    #   # set classes; by column name since conflicts resolved above
-    #
-    #   # character
-    #   char_cols <- with(schema_i, name[type == "character"])
-    #   for (j in char_cols) tmp[, j] <- as.character(data.frame(tmp)[, j])
-    #
-    #   # numeric
-    #   num_cols <- with(schema_i, name[type == "numeric"])
-    #   for (j in num_cols) tmp[, j] <- as.numeric(data.frame(tmp)[, j])
-    #
-    #   # POSIXct
-    #   posixct_cols <- with(schema_i, name[type == "POSIXct"])
-    #   for (j in posixct_cols) {
-    #     schema_row <- match(j, schema_i$name)
-    #
-    #     # Get time zone
-    #     # function to construct time zone string from reference column tmp
-    #     REFCOL <- function(x) {
-    #       col_x <- gsub(")$", "", strsplit(x, "REFCOL\\(")[[1]][2])
-    #       x2 <- tmp[, col_x]
-    #       utc_rows <- tolower(x2) %in% c("utc", "gmt")
-    #       x2[utc_rows] <- "UTC"
-    #       x2[!utc_rows] <- with(tmp, paste0("US/", x2[!utc_rows]))
-    #       return(x2)
-    #     }
-    #
-    #     # get timezone for this column
-    #     tz_cmd <- gsub("^tz = |^tz=|\"", "", schema_i$arg[schema_row])
-    #
-    #     if (grepl("REFCOL", tz_cmd)) {
-    #       tzone_j <- REFCOL(tz_cmd)
-    #       tz_cmd <- unique(tzone_j)
-    #     } else {
-    #       tzone_j <- tz_cmd
-    #     }
-    #
-    #     if (nrow(tmp) > 0) {
-    #       # Handle mixture of timestamps as date and char
-    #
-    #       # identify timestamps that can be numeric; assume others character
-    #       posix_na <- is.na(tmp[, j]) # identify missing first
-    #
-    #       if (inherits(tmp[, j], "POSIXct")) {
-    #         posix_as_num <- tmp[, j]
-    #       } else {
-    #         posix_as_num <- suppressWarnings(as.numeric(tmp[, j]))
-    #
-    #         # convert excel number to posix
-    #         posix_as_num <- as.POSIXct("1899-12-30", tz = "GMT") +
-    #           (posix_as_num * 86400)
-    #       }
-    #
-    #       posix_as_char <- !posix_na & is.na(posix_as_num)
-    #
-    #       if (any(posix_as_char)) {
-    #         bad_pc_rows <- which(posix_as_char) + 2
-    #         bad_pc_rows <- ifelse(length(bad_pc_rows) < 10,
-    #           paste0(bad_pc_rows, collapse = ", "),
-    #           paste0(paste(bad_pc_rows[1:10], collapse = ", "),
-    #             "... +", length(bad_pc_rows) - 10, " more.",
-    #             collapse = " "
-    #           )
-    #         )
-    #         warning(paste0(
-    #           "Some records (see below) ",
-    #           "in '", sheets_to_read[i], "` were not recognized as Excel ",
-    #           "datetime objects.\n  These should have imported correctly if ",
-    #           "formatted as 'YYYY-MM-DD HH:MM',\n  but see 'Note' in ",
-    #           "help(\"read_glatos_workbook\") to avoid this warning.\n\n ",
-    #           "Column: '", j, "'\n   Rows:  ", bad_pc_rows, "\n "
-    #         ))
-    #       }
-    #
-    #       # handle multiple time zones
-    #       for (k in 1:length(tz_cmd)) {
-    #         rows_k <- tzone_j %in% tz_cmd[k] # get rows with kth tz
-    #         # round to nearest minute and force to correct timezone
-    #         posix_as_num[rows_k] <- as.POSIXct(
-    #           format(
-    #             round(
-    #               posix_as_num[rows_k],
-    #               "mins"
-    #             ),
-    #             "%Y-%m-%d %H:%M",
-    #           ),
-    #           tz = tz_cmd[k]
-    #         )
-    #
-    #         # do same for posix_as_char and insert into posix_as_num
-    #         if (any(posix_as_char[rows_k])) {
-    #           posix_as_num[posix_as_char & rows_k] <-
-    #             as.POSIXct(tmp[posix_as_char & rows_k, j],
-    #               tz = tz_cmd[k]
-    #             )
-    #         }
-    #       } # end k
-    #
-    #       tmp[, j] <- posix_as_num
-    #     } else {
-    #       tmp[, j] <- as.POSIXct(NA, tz = "UTC")[0]
-    #     }
-    #
-    #     attr(tmp[, j], "tzone") <- "UTC"
-    #   } # end j
-    #
-    #   # Date
-    #   date_cols <- with(schema_i, name[type == "Date"])
-    #   for (j in date_cols) {
-    #     schema_row <- match(j, schema_i$name)
-    #
-    #
-    #     # identify date that can be numeric; assume others character
-    #     date_na <- is.na(tmp[, j]) # identify missing
-    #
-    #     if (inherits(tmp[, j], "POSIXct")) {
-    #       date_as_num <- suppressWarnings(as.Date(tmp[, j]))
-    #     } else {
-    #       # convert excel number to R date
-    #       date_as_num <- suppressWarnings(as.numeric(tmp[, j]))
-    #       date_as_num <- as.Date("1899-12-30") + date_as_num
-    #     }
-    #
-    #     date_as_char <- !date_na & is.na(date_as_num)
-    #
-    #     # do same for date_as_char and insert into ate_as_num
-    #     if (any(date_as_char)) {
-    #       bad_dc_rows <- which(date_as_char) + 2
-    #       bad_dc_rows <- ifelse(length(bad_dc_rows) < 10,
-    #         paste0(bad_dc_rows, collapse = ", "),
-    #         paste0(paste(bad_dc_rows[1:10], collapse = ", "),
-    #           "... +", length(bad_dc_rows) - 10, " more.",
-    #           collapse = " "
-    #         )
-    #       )
-    #       date_as_num[date_as_char] <- tryCatch(as.Date(tmp[date_as_char, j]),
-    #         error = function(e) {
-    #           if (e$message == "character string is not in a standard unambiguous format") {
-    #             stop(paste0(
-    #               "At least one of the records identified below in '",
-    #               sheets_to_read[i], "`\n  could not be coerced to Date because ",
-    #               "the format was invalid.\n  Dates stored as ",
-    #               "text in GLATOS Workbooks must be formatted \n  ",
-    #               "'YYYY-MM-DD'. See 'Note' in ",
-    #               "help(\"read_glatos_workbook\") \n  about formatting ",
-    #               "dates and times ",
-    #               "in GLATOS Workbooks.\n\n ",
-    #               "Column: '", j, "'\n   Row:  ", bad_dc_rows, "\n"
-    #             ))
-    #           } else {
-    #             return(e)
-    #           }
-    #         }
-    #       )
-    #     }
-    #
-    #     # warn user if no error
-    #     if (any(date_as_char)) {
-    #       warning(paste0(
-    #         "Some records (see below) in '",
-    #         sheets_to_read[i], "` were not recognized as Excel date objects.\n",
-    #         "  These should have imported correctly if formatted as ",
-    #         "'YYYY-MM-DD',\n  but see 'Note' in ",
-    #         "help(\"read_glatos_workbook\") to avoid this warning.\n\n ",
-    #         "Column: '", j, "'\n    Row:  ", bad_dc_rows, "\n"
-    #       ))
-    #     }
-    #
-    #
-    #     tmp[, j] <- date_as_num
-    #   } # end j
-    #
-    # } # end i
-
 
     if (simplify == FALSE) {
       return(wb)
@@ -828,7 +629,7 @@ read_glatos_workbook <- function(
 #'  be returned as attributes with prefix "error_" or "warning_".
 #'
 #' @param ... Other arguments passed to the casting function (e.g., `tz =
-#'   "US/Eastern"` when `new_class` is `POSIXct`.
+#'   "US/Eastern"` when `new_class` is `POSIXct`).
 #'
 #' @details
 #'  Written specifically for `readxl::read_excel` with `col_types = "list"` to
@@ -883,6 +684,8 @@ cast <- function(x,
                  ),
                  defer_exceptions = TRUE,
                  ...) {
+  
+  #args_in <- list()
   args_in <- list(...)
 
   x_class <- sapply(x, function(x) class(x)[1])
@@ -957,19 +760,19 @@ cast <- function(x,
 
   # Assign code indicating status of the cast
   cast_status <- data.table::fcase(
-    # success; record not cast because old and new class are same
+    # 1 = success; record not cast because old and new class are same
     # or input was NA
     # result is same as input
     (x_class == new_class & x_class %in% old_class) | x_na,
     1, # old and new class same
-    # apparent successful cast (not NA before and after)
+    # 2 = apparent success (not NA before and after)
     !x_na & !is.na(x2),
     2, # apparent successful cast (non-NA result)
-    # record not cast; unsupported class (not in old_class)
+    # 3 = record not cast; unsupported class (not in old_class)
     # result is NA
     !(x_class %in% old_class),
     3, # unsupported class
-    # failed cast (NA after cast; but not before)
+    # 4 = failed cast (NA after cast; but not before)
     # result in NA
     !x_na & is.na(x2),
     4, # failed cast
@@ -1047,6 +850,7 @@ cast <- function(x,
     )
   }
 
+  
   if (!defer_exceptions) {
     if (length(warning_cast_to_check) > 0) {
       warning(
@@ -1071,7 +875,9 @@ cast <- function(x,
   }
 
   return(structure(x2,
-    cast_status = cast_status
+   error_input_class_skipped = error_input_class_skipped,
+   error_cast_failed = error_cast_failed,
+   warning_cast_to_check = warning_cast_to_check
   ))
 }
 

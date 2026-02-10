@@ -126,6 +126,8 @@ wb_file <- system.file("extdata",
 
 wb <- read_glatos_workbook(wb_file)
 
+wba <- read_glatos_workbook(wb_file, read_all = TRUE)
+
 wbr <- read_glatos_workbook(wb_file, simplify = FALSE)
 
 
@@ -138,7 +140,10 @@ wb2_file <- system.file("extdata",
 
 wb2 <- read_glatos_workbook(wb2_file)
 
+wb2a <- read_glatos_workbook(wb2_file, read_all = TRUE)
+
 wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
+
 
 }
 \seealso{
