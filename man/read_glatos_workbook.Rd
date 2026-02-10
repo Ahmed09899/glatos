@@ -144,7 +144,6 @@ wb2a <- read_glatos_workbook(wb2_file, read_all = TRUE)
 
 wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
 
-
 }
 \seealso{
 \link[readxl:read_excel]{read_excel}
