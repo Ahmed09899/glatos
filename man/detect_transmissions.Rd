@@ -222,5 +222,5 @@ segments(
 path (i.e., create \code{trnsLoc}).
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

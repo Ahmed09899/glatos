@@ -46,5 +46,5 @@ rcv <- read_glatos_receivers(rec_file)
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

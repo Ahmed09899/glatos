@@ -59,7 +59,7 @@
 #'   \item{detProb}{The proportion of simulated fish that were detected more
 #'   than once on any single receiver.}
 #'
-#' @author C. Holbrook \email{cholbrook@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@glfc.org}
 #'
 #' @references
 #' For application example, see:  \cr\cr

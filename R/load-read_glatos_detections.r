@@ -26,7 +26,7 @@
 #'
 #' @return A data.frame of class `glatos_detections`.
 #'
-#' @author C. Holbrook \email{cholbrook@@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@@glfc.org}
 #'
 #' @examples
 #' # get path to example detection file

@@ -96,7 +96,7 @@
 #'   sheet in `wb_file`.
 #' }
 #'
-#' @author C. Holbrook \email{cholbrook@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@glfc.org}
 #'
 #' @seealso [read_excel][readxl::read_excel]
 #'
@@ -159,7 +159,8 @@ read_glatos_workbook <- function(
 
   #-Workbook v1.3, v1.4--------------------------------------------------------------
   if (wb_version %in% c("1.3", "1.4")) {
-    # Get sheet names in external file
+   
+     # Get sheet names in external file
     wb_sheets <- readxl::excel_sheets(wb_file)
 
 
@@ -381,10 +382,12 @@ read_glatos_workbook <- function(
       # Handle 'extra' columns (not in schema)
       # if multiple classes present in a column, cast to "highest-level" class
 
-      extra_cols <- setdiff(tolower(col_names_i), schema_i$name)
+      extra_cols <- col_names_i[!(tolower(col_names_i) %in% schema_i$name)]
 
       if (read_all) {
+        
         if (nrow(sheet_i) > 0) {
+          
           supported_classes <- c(
             "POSIXct",
             "Date",
@@ -394,6 +397,7 @@ read_glatos_workbook <- function(
           )
 
           for (j in extra_cols) {
+            
             types_ij <- unique(unlist(lapply(sheet_i[[j]], class)))
 
             # expect 'highest-level' observed class
@@ -408,8 +412,8 @@ read_glatos_workbook <- function(
                 type_exp
               )
             )
-          }
-        } # end j
+          } # end j
+        } 
       } else {
         std_names_i <- names(sheet_i2)[tolower(names(sheet_i2)) %in%
           schema_i$name]

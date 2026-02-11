@@ -52,5 +52,5 @@ plot(foo, type = "o", pch = 20, asp = c(1, 1))
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

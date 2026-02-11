@@ -82,5 +82,5 @@ write_vdat_csv(vdat,
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

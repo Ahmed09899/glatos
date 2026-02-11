@@ -53,7 +53,7 @@
 #'   contains the input GLATOS workbook, or `out_file` otherwise.
 #'   Path to output file is returned.
 #'
-#' @author C. Holbrook \email{cholbrook@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@glfc.org}
 #'
 #' @examples
 #' \dontrun{

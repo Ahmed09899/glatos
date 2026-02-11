@@ -75,6 +75,6 @@ vrl2csv(myVRL, overwrite = FALSE)
 \code{\link{glatos-deprecated}}
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }
 \keyword{internal}

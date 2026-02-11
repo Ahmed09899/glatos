@@ -17,7 +17,7 @@
 #' @return A data.frame of class \code{vue_receiver_events}.
 #'
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #' csv_file <- system.file("extdata",

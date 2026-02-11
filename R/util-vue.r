@@ -70,7 +70,7 @@
 #'  each filename, then run \code{vue_convert} to create a CSV for each edited
 #'  (e.g. time-corrected) VRL.
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #' \dontrun{

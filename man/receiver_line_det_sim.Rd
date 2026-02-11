@@ -193,5 +193,5 @@ multi-year field tests and simulations. Animal Biotelemetry, 4(1), p.19.
 \cr \url{https://animalbiotelemetry.biomedcentral.com/articles/10.1186/s40317-016-0112-9}
 }
 \author{
-C. Holbrook \email{cholbrook@usgs.gov}
+C. Holbrook \email{cholbrook@glfc.org}
 }

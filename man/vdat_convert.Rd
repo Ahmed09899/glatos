@@ -196,5 +196,5 @@ vdat_convert(
 
 }
 \author{
-C. Holbrook, \email{cholbrook@usgs.gov}
+C. Holbrook, \email{cholbrook@glfc.org}
 }

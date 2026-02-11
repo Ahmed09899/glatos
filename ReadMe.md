@@ -15,12 +15,12 @@ glatos is hosted by the Ocean Tracking Network on [github](https://github.com/oc
 [NEWS](https://github.com/ocean-tracking-network/glatos/blob/main/NEWS.md). 
 
 * To report a bug, ask a question, or propose something new, submit an [Issue](https://github.com/ocean-tracking-network/glatos/issues) or email the 
-maintainer (Chris Holbrook): <cholbrook@usgs.gov>.
+maintainer (Chris Holbrook): <cholbrook@glfc.org>.
 
 
 ### Installation
 
-To install the latest release (0.9.1 'pretty-fragrant-rye'): 
+To install the latest release (0.9.2 'pretty-fragrant-rye'): 
   
 ```{r eval = FALSE}
 library(remotes) # for install_github

@@ -18,13 +18,13 @@ glatos is hosted by the Ocean Tracking Network on \href{https://github.com/ocean
 \item For recent changes, see
 \href{https://github.com/ocean-tracking-network/glatos/blob/main/NEWS.md}{NEWS}.
 \item To report a bug, ask a question, or propose something new, submit an \href{https://github.com/ocean-tracking-network/glatos/issues}{Issue} or email the
-maintainer (Chris Holbrook): \href{mailto:cholbrook@usgs.gov}{cholbrook@usgs.gov}.
+maintainer (Chris Holbrook): \href{mailto:cholbrook@glfc.org}{cholbrook@glfc.org}.
 }
 }
 
 \subsection{Installation}{
 
-To install the latest release (0.9.1 'pretty-fragrant-rye'):
+To install the latest release (0.9.2 'pretty-fragrant-rye'):
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(remotes) # for install_github
 install_github('ocean-tracking-network/glatos', build_vignettes = TRUE)
@@ -112,7 +112,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Christopher Holbrook \email{cholbrook@usgs.gov}
+\strong{Maintainer}: Christopher Holbrook \email{cholbrook@glfc.org}
 
 Authors:
 \itemize{

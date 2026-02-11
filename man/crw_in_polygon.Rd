@@ -197,5 +197,5 @@ points(sf::st_coordinates(sf::st_as_sf(path_sp)),
 \link{crw}, \link{transmit_along_path}, \link{detect_transmissions}
 }
 \author{
-C. Holbrook \email{cholbrook@usgs.gov}
+C. Holbrook \email{cholbrook@glfc.org}
 }

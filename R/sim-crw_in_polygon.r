@@ -58,7 +58,7 @@
 #'   \item{x}{x coordinates} \item{y}{y coordinates} in the same units as
 #'   `polyg`.
 #'
-#' @author C. Holbrook \email{cholbrook@@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@@glfc.org}
 #'
 #' @seealso [crw], [transmit_along_path], [detect_transmissions]
 #'

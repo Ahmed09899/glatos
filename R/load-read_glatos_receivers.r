@@ -21,7 +21,7 @@
 #'
 #' @return A data.frame of class `glatos_receivers`.
 #'
-#' @author C. Holbrook (cholbrook@usgs.gov)
+#' @author C. Holbrook (cholbrook@glfc.org)
 #'
 #' @examples
 #' # get path to example receiver_locations file

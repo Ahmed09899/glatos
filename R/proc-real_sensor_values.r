@@ -81,7 +81,7 @@
 #'     \item sensor_value_real
 #'  }
 #'
-#' @author Chris Holbrook, \email{cholbrook@usgs.gov}
+#' @author Chris Holbrook, \email{cholbrook@glfc.org}
 #'
 #' @examples
 #'
