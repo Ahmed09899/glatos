@@ -15,7 +15,7 @@ read_glatos_workbook(
 \item{wb_file}{A character string with path and name of workbook in standard
 GLATOS format (.xlsm or .xlsx). If only file name is given, then the file
 must be located in the working directory. See the GLATOSWeb Data
-Portal \url{https://glatos.glos.us} for file format definitions.}
+Portal \url{https://glatos.org} for file format definitions.}
 
 \item{read_all}{If TRUE, then all columns and sheets (e.g., user-created
 "project-specific" columns or sheets) in the workbook will be imported. If
@@ -94,7 +94,7 @@ time columns are sometimes stored as text in Excel. When those records are
 loaded by this function, there are two possible outcomes. \cr \cr 1. If the
 records are formatted according to the GLATOS Data Dictionary specification
 (e.g., "YYYY-MM-DD" for dates and "YYYY-MM-DD HH:MM" for timestamps; see
-\url{https:\\\\glatos.glos.us}) those records should be properly loaded into R,
+\url{https:\\\\glatos.org}) those records should be properly loaded into R,
 but the user is encouraged to verify that they were loaded correctly, so a
 warning points the user to those records in the workbook. Users may want to
 format as custom date in the workbook to avoid warnings in the future. \cr

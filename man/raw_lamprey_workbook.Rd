@@ -16,7 +16,7 @@ worksheets:
 }
 }
 \source{
-\url{http://glatos.glos.us/home/project/SMRSL}
+\url{https://glatos.org/home/project/SMRSL}
 }
 \description{
 A completed GLATOS workbook from St. Marys River Sea Lamprey

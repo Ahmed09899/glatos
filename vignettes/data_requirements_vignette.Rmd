@@ -52,7 +52,7 @@ functions (see the [Data Loading vignette](data_loading.html) for details) will
 ensure that resulting data objects meet the requirements of *glatos* functions.
 For reference, the [appendix](#appendix-glatos-network-standard-data-files)
 provides data field definitions (data dictionary) of standard data files
-obtained from the GLATOS [Data Portal](https://glatos.glos.us/portal).
+obtained from the GLATOS [Data Portal](https://glatos.org/portal).
 
 
 ## Data requirements 
@@ -488,5 +488,5 @@ worksheets:
   with the animal and transmitter.*
 
 For more details about the structure of this file, see the [Data Submission
-Package](https://glatos.glos.us/static/GLATOSWeb_Submission_Package.zip) in the
-[GLATOS Data Portal](https://glatos.glos.us/portal).
+Package](https://glatos.org/static/GLATOSWeb_Submission_Package.zip) in the
+[GLATOS Data Portal](https://glatos.org/portal).

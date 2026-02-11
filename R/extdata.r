@@ -13,7 +13,7 @@
 #'
 #' @author Todd Hayden
 #'
-#' @source <http://glatos.glos.us/home/project/HECWL>
+#' @source <https://glatos.org/home/project/HECWL>
 NULL
 
 
@@ -42,7 +42,7 @@ NULL
 #'
 #' @author Chris Holbrook
 #'
-#' @source <http://glatos.glos.us/home/project/SMRSL>
+#' @source <https://glatos.org/home/project/SMRSL>
 NULL
 
 
@@ -62,7 +62,7 @@ NULL
 #'
 #' @author Todd Hayden
 #'
-#' @source <http://glatos.glos.us/home/project/HECWL>
+#' @source <https://glatos.org/home/project/HECWL>
 NULL
 
 #' @title zipped polygon shapefile of Great Lakes
@@ -100,7 +100,7 @@ NULL
 #'
 #' @author Todd Hayden
 #'
-#' @source <http://glatos.glos.us/home>
+#' @source <https://glatos.org/home>
 NULL
 
 #' @title Example animal data from the OTN ERDDAP

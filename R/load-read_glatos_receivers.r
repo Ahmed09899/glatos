@@ -7,7 +7,7 @@
 #'   file in standard GLATOS format (*.csv). If only file name is given, then
 #'   the file must be located in the working directory. File must be a standard
 #'   GLATOS file (e.g., *GLATOS_receiverLocations_yyyymmdd_xxxxxx.csv*) obtained
-#'   from GLATOSWeb Data Portal <http://glatos.glos.us>.
+#'   from GLATOSWeb Data Portal <https://glatos.org>.
 #'
 #' @param version An optional character string with the GLATOS file version
 #'   number. If NULL (default value) then version will be determined by

@@ -7,7 +7,7 @@
 shapefile
 }
 \source{
-\url{http://glatos.glos.us/home}
+\url{https://glatos.org/home}
 }
 \description{
 Polygon coastline of Great Lakes in WGS84 projection.

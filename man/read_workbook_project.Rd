@@ -10,7 +10,7 @@ read_workbook_project(wb_file)
 \item{wb_file}{A character string with path and name of workbook in standard
 GLATOS format (.xlsm or .xlsx). If only file name is given, then the file
 must be located in the working directory. See the GLATOSWeb Data
-Portal \url{https://glatos.glos.us} for file format definitions.}
+Portal \url{https://glatos.org} for file format definitions.}
 }
 \value{
 A list with six elements:
