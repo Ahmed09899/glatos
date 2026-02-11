@@ -7,7 +7,7 @@
 \title{\subsection{glatos: An R package for the Great Lakes Acoustic Telemetry Observation System}{
 
 glatos is an R package with functions useful to members of the Great Lakes
-Acoustic Telemetry Observation System https://glatos.glos.us. Functions may
+Acoustic Telemetry Observation System https://glatos.org. Functions may
 be generally useful for processing, analyzing, simulating, and visualizing
 acoustic telemetry data, but are not strictly limited to acoustic telemetry
 applications.
@@ -101,7 +101,7 @@ detection and ERDDAP csvs of OTN animals, tags and stations to a format supporte
 
 }}
 \description{
-Functions useful to members of the Great Lakes Acoustic Telemetry Observation System https://glatos.glos.us; many more broadly relevant to simulating, processing, analysing, and visualizing acoustic telemetry data.
+Functions useful to members of the Great Lakes Acoustic Telemetry Observation System https://glatos.org; many more broadly relevant to simulating, processing, analysing, and visualizing acoustic telemetry data.
 }
 \seealso{
 Useful links:

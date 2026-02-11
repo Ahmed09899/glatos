@@ -7,7 +7,7 @@
 A zipped walleye detection file in detection file format 1.3:
 }
 \source{
-\url{http://glatos.glos.us/home/project/HECWL}
+\url{https://glatos.org/home/project/HECWL}
 }
 \description{
 An example detection file

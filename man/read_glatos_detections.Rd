@@ -11,7 +11,7 @@ read_glatos_detections(det_file, version = NULL)
 standard GLATOS format (*.csv). If only file name is given, then the file
 must be located in the working directory. File must be a standard GLATOS
 file (e.g., \emph{xxxxx_detectionsWithLocs_yyyymmdd_hhmmss.csv}) submitted via
-GLATOSWeb Data Portal \url{https://glatos.glos.us}.}
+GLATOSWeb Data Portal \url{https://glatos.org}.}
 
 \item{version}{An optional character string with the glatos file version
 number. If NULL (default value) then version will be determined by

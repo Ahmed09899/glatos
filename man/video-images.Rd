@@ -7,7 +7,7 @@
 Folder contains 30 sequentially labeled .png image files
 }
 \source{
-\url{http://glatos.glos.us/home/project/HECWL}
+\url{https://glatos.org/home/project/HECWL}
 }
 \description{
 Sequential images of walleye movements in Lake Huron

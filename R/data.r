@@ -78,7 +78,7 @@
 #' George, North Channel of the St. Marys River during the 2012 spawning year.
 #'
 #' @details Data were collected as part of the GLATOS project SMRSL
-#'   <http://glatos.glos.us/home/project/SMRSL>
+#'   <https://glatos.org/home/project/SMRSL>
 #'
 #' @details Positions were calculated using the Vemco Positioning System.
 #'

@@ -228,7 +228,7 @@ and validator functions *glatos_detections()*, *as_glatos_detections()* and
 
 The *read_glatos_detections* function reads detection data from a standard
 detection export file (\*.csv file) obtained from the GLATOS [Data
-Portal](https://glatos.glos.us/portal) and checks that the data meet
+Portal](https://glatos.org/portal) and checks that the data meet
 *glatos* package requirements. Data are read using *fread* in the
 *data.table* package, timestamps are formatted as class *POSIXct* and dates are
 formatted as class *Date*.
@@ -814,7 +814,7 @@ functions (*glatos_receivers()*, *as_glatos_receivers()*, and
 ### Loading GLATOS data (entire network)
 
 The *read_glatos_receivers* function reads in receiver location data obtained
-from the GLATOS [Data Portal](https://glatos.glos.us/portal) and checks that the
+from the GLATOS [Data Portal](https://glatos.org/portal) and checks that the
 data meet requirements of *glatos* functions. Data are read using *fread* in the
 *data.table* package, timestamps are formatted as class *POSIXct*.
 

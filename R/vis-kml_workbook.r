@@ -11,7 +11,7 @@
 #'   GLATOS format (*.xlsm). If only file name is given, then the file must be
 #'   located in the working directory. File must be a standard GLATOS file
 #'   (e.g., *xxxxx_GLATOS_YYYYMMDD.xlsm*) submitted via GLATOSWeb Data
-#'   Portal <http://glatos.glos.us>.
+#'   Portal <https://glatos.org>.
 #'
 #' @param receiver_locs **not yet implemented**
 #'
