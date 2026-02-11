@@ -1,5 +1,21 @@
 ----
 
+# glatos 0.9.2 (2026-02-11)
+
+
+### Bug fixes and minor changes
+
+- Fixed bug in `read_glatos_workbook()` that caused failure when 
+`read_all = TRUE` and project-specific column names contained capital letters; 
+with "Error in switch(new_class, logical = as.logical, numeric = as.numeric,  : 
+  EXPR must be a length 1 vector".
+  - fixes [issue #274](https://github.com/ocean-tracking-network/glatos/issues/274)
+
+- Updated contact information.
+
+
+----
+
 # glatos 0.9.1 (2026-02-10)
 
 

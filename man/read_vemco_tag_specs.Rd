@@ -81,5 +81,5 @@ my_tags <- read_vemco_tag_specs(spec_file, file_format = "vemco_xls")
 
 }
 \author{
-C. Holbrook, \email{cholbrook@usgs.gov}
+C. Holbrook, \email{cholbrook@glfc.org}
 }

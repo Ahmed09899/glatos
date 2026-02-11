@@ -35,7 +35,7 @@ test_that("receivers element gives expected result; v1.3 (read_all = TRUE)", {
   expect_s3_class(wb13a[["receivers"]], "data.frame")
 
   # Check if project-specific columns are present
-  expect_true("receiver" %in% names(wb13a[["receivers"]]))
+  expect_true("RECEIVER" %in% names(wb13a[["receivers"]]))
 })
 
 test_that("animals gives expected result; v1.3 (read_all = TRUE)", {
@@ -90,7 +90,7 @@ test_that("receivers element gives expected result; v1.4 (read_all = TRUE)", {
   expect_s3_class(wb14a[["receivers"]], "data.frame")
 
   # Check if project-specific columns are present
-  expect_true("receiver" %in% names(wb14a[["receivers"]]))
+  expect_true("RECEIVER" %in% names(wb14a[["receivers"]]))
 })
 
 test_that("animals gives expected result; v1.4 (read_all = TRUE)", {

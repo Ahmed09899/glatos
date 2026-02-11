@@ -26,7 +26,7 @@
 #' @note
 #' This function is called from within [crw_in_polygon()]
 #'
-#' @author C. Holbrook (cholbrook@usgs.gov)
+#' @author C. Holbrook (cholbrook@glfc.org)
 #'
 #' @examples
 #'

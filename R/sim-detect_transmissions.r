@@ -81,7 +81,7 @@
 #' @seealso [transmit_along_path()] to simulate transmissions along a
 #'   path (i.e., create `trnsLoc`).
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #'

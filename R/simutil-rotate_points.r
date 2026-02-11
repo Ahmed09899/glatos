@@ -21,7 +21,7 @@
 #' @note
 #' This function is called from [crw_in_polygon()]
 #'
-#' @author C. Holbrook (cholbrook@usgs.gov)
+#' @author C. Holbrook (cholbrook@glfc.org)
 #'
 #' @examples
 #' x <- runif(10, 0, 10)

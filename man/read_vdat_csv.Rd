@@ -135,5 +135,5 @@ format(vdat$DET$Time[2], format = "\%Y-\%m-\%d \%H:\%M:\%OS6")
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

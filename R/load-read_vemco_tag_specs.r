@@ -63,7 +63,7 @@
 #'
 #' }
 #'
-#' @author C. Holbrook, \email{cholbrook@usgs.gov}
+#' @author C. Holbrook, \email{cholbrook@glfc.org}
 #'
 #' @examples
 #' # get path to example Vemco tag spec file

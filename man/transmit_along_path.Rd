@@ -186,5 +186,5 @@ points(sf::st_coordinates(mytrns_sp), pch = 20, col = "red")
 
 }
 \author{
-C. Holbrook \email{cholbrook@usgs.gov}
+C. Holbrook \email{cholbrook@glfc.org}
 }

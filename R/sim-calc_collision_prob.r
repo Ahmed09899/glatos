@@ -47,7 +47,7 @@
 #'   fine-scale variability and complex interactions. Animal Biotelemetry, 4(1):1.
 #'   \cr <http://animalbiotelemetry.biomedcentral.com/articles/10.1186/s40317-016-0097-4>
 #'
-#' @author C. Holbrook (cholbrook@usgs.gov) and T. Binder
+#' @author C. Holbrook (cholbrook@glfc.org) and T. Binder
 #'
 #' @examples
 #' # parameters analagous to Vemco tag, global coding, 45 s nominal delay

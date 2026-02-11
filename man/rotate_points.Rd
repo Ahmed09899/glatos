@@ -41,5 +41,5 @@ points(foo$x, foo$y, type = "b", pch = 20, col = "red")
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

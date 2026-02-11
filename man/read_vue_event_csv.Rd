@@ -36,5 +36,5 @@ vue_evn <- read_vue_event_csv(csv_file)
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

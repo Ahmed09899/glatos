@@ -100,5 +100,5 @@ kml_workbook(wb = wb, kmz = TRUE, out_file = "bigger.kmz")
 
 }
 \author{
-C. Holbrook \email{cholbrook@usgs.gov}
+C. Holbrook \email{cholbrook@glfc.org}
 }

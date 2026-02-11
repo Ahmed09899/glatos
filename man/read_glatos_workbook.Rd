@@ -149,5 +149,5 @@ wbr2 <- read_glatos_workbook(wb2_file, simplify = FALSE)
 \link[readxl:read_excel]{read_excel}
 }
 \author{
-C. Holbrook \email{cholbrook@usgs.gov}
+C. Holbrook \email{cholbrook@glfc.org}
 }

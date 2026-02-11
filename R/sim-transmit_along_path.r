@@ -62,7 +62,7 @@
 #'   [crw_in_polygon()] and before [detect_transmissions()],
 #'   which was designed to accept the result as input (`trnsLoc`).
 #'
-#' @author C. Holbrook \email{cholbrook@@usgs.gov}
+#' @author C. Holbrook \email{cholbrook@@glfc.org}
 #'
 #' @examples
 #'

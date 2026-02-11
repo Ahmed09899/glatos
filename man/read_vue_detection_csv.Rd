@@ -35,5 +35,5 @@ vue_det <- read_vue_detection_csv(csv_file)
 
 }
 \author{
-C. Holbrook (cholbrook@usgs.gov)
+C. Holbrook (cholbrook@glfc.org)
 }

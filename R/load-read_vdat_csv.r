@@ -28,7 +28,7 @@
 #'   \code{vdat.exe} used to create the input file.
 #'
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #' \dontrun{

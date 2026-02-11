@@ -117,5 +117,5 @@ dtc[!is.na(dtc$sensor_value_real), ]
 
 }
 \author{
-Chris Holbrook, \email{cholbrook@usgs.gov}
+Chris Holbrook, \email{cholbrook@glfc.org}
 }

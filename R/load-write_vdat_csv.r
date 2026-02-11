@@ -32,7 +32,7 @@
 #'
 #' @return A character string with full path and file name to output file.
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #' \dontrun{

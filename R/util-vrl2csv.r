@@ -52,7 +52,7 @@
 #' When using versions of VUE before 2.3, VUE can return an error code or
 #' warning message even if conversion was successful.
 #'
-#' @author C. Holbrook (cholbrook@@usgs.gov)
+#' @author C. Holbrook (cholbrook@@glfc.org)
 #'
 #' @examples
 #' \dontrun{

@@ -135,7 +135,7 @@ a project and completing a data submission.  Details about how to
 format and submit range testing data to the GLATOS database is beyond
 the scope of this vignette.  Please contact the GLATOS Data Steward
 for more information about uploading range testing data and data
-export.^[GLATOS Data Steward- Nancy Nate, email: nnate@usgs.gov]
+export.^[GLATOS Data Steward- Nancy Nate, email: nnate@glfc.org]
 
 In the first part of this vignette, we provide R code for loading
 and cleaning up the detection data.  In subsequent sections, we

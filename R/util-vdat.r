@@ -80,7 +80,7 @@
 #'
 #' @note Tested on VDAT version vdat-10.6.0-20240716-1903df-release
 #'
-#' @author C. Holbrook, \email{cholbrook@@usgs.gov}
+#' @author C. Holbrook, \email{cholbrook@@glfc.org}
 #'
 #' @examples
 #' \dontrun{
