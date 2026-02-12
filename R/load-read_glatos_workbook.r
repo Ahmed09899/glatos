@@ -665,9 +665,6 @@ read_glatos_workbook <- function(
 #' cast(x, "POSIXct")
 #'
 #' cast(x, "POSIXct", tz = "US/Pacific")
-#' 
-#' # empty list input returns empty result
-#' cast(list(), "character")
 #'
 #' # separate tz for each element
 #' cast(x, "POSIXct", tz = c("US/Eastern", rep("US/Pacific", 5)))
