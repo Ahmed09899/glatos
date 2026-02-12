@@ -25,7 +25,7 @@ is negative); CRS: WGS84}
 }
 }
 \source{
-Chris Holbrook, US Geological Survey (cholbrook@glfc.org)
+Chris Holbrook, (cholbrook@glfc.org)
 }
 \usage{
 lamprey_tracks

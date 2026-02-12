@@ -36,6 +36,10 @@ test_that("receivers element gives expected result; v1.3 (read_all = TRUE)", {
 
   # Check if project-specific columns are present
   expect_true("RECEIVER" %in% names(wb13a[["receivers"]]))
+
+  # Check if standard part of workbook is correct
+  # RECEIVER is 32nd column
+  expect_equal(wb13a[["receivers"]][, -32], walleye_workbook[["receivers"]])
 })
 
 test_that("animals gives expected result; v1.3 (read_all = TRUE)", {
@@ -45,6 +49,9 @@ test_that("animals gives expected result; v1.3 (read_all = TRUE)", {
   # Check if project-specific columns are present
   expect_true(all(c("release_year", "release_month", "release_doy") %in%
     names(wb13a[["animals"]])))
+
+  # Check if standard part of workbook is correct
+  expect_equal(wb13a[["animals"]][, 1:55], walleye_workbook[["animals"]])
 })
 
 
@@ -91,6 +98,10 @@ test_that("receivers element gives expected result; v1.4 (read_all = TRUE)", {
 
   # Check if project-specific columns are present
   expect_true("RECEIVER" %in% names(wb14a[["receivers"]]))
+
+  # Check if standard part of workbook is correct
+  # RECEIVER is 32nd column
+  expect_equal(wb14a[["receivers"]][, -32], walleye_workbook[["receivers"]])
 })
 
 test_that("animals gives expected result; v1.4 (read_all = TRUE)", {
@@ -100,4 +111,7 @@ test_that("animals gives expected result; v1.4 (read_all = TRUE)", {
   # Check if project-specific columns are present
   expect_true(all(c("release_year", "release_month", "release_doy") %in%
     names(wb14a[["animals"]])))
+
+  # Check if standard part of workbook is correct
+  expect_equal(wb14a[["animals"]][, 1:55], walleye_workbook[["animals"]])
 })
