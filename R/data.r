@@ -101,7 +101,7 @@
 #'   \item{DRX}{receivers that detected the associated transmission}
 #' }
 #'
-#' @source Chris Holbrook, US Geological Survey (cholbrook@glfc.org)
+#' @source Chris Holbrook, (cholbrook@glfc.org)
 #'
 "lamprey_tracks"
 

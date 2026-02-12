@@ -1,5 +1,19 @@
 ----
 
+# glatos 0.9.3 (2026-02-12)
+
+
+### Bug fixes 
+
+- Fixed bug in `read_glatos_workbook()` that caused failure when 
+the deployment, recovery, or locations sheets contained no records; 
+with "Error in sort.list(bx[m$xi]) : 
+  'x' must be atomic for 'sort.list', method "shell" and "quick"".
+  - fixes [issue #275](https://github.com/ocean-tracking-network/glatos/issues/275)
+
+
+----
+
 # glatos 0.9.2 (2026-02-11)
 
 
