@@ -322,5 +322,6 @@ convert_sex <- function(sex) {
   data.table::fcase(
     grepl("^f$|^female$", sex, ignore.case = TRUE), "FEMALE",
     grepl("^m$|^male$", sex, ignore.case = TRUE), "MALE",
-    default = as.character(sex))
+    default = as.character(sex)
+  )
 }
