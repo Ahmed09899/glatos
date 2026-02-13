@@ -1,5 +1,23 @@
 ----
 
+# glatos 0.9.4 (2026-02-13)
+
+
+### Bug fixes and minor changes
+
+- Fixed bug in `convert_glatos_to_att()` that caused 'Tag.ID' column in 
+'Tag.Metadata' element of ATT object" to be lost (converted to NA) if it was 
+not integer-compatible. The glatos analog to 'Tag.ID', 'animal_id' is 
+character and VTrack accepts 'Tag.ID' as character (as well as integer). 
+convert_glatos_to_att() now returns 'Tag.ID' as character.
+  - fixes [issue #276](https://github.com/ocean-tracking-network/glatos/issues/276)
+
+- Optimized `convert_sex()` to use data.table::fcase for text translation 
+instad of sapply() over each row.
+
+
+----
+
 # glatos 0.9.3 (2026-02-12)
 
 
