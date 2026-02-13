@@ -23,6 +23,6 @@ test_that("can handle a vector", {
 test_that("handles missing values correctly", {
   sex_na <- convert_sex(NA)
 
-  expect_identical(sex_na, NA)
-  expect_type(sex_na, "logical")
+  expect_identical(sex_na, NA_character_)
+  expect_type(sex_na, "character")
 })

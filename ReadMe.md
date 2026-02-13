@@ -20,7 +20,7 @@ maintainer (Chris Holbrook): <cholbrook@glfc.org>.
 
 ### Installation
 
-To install the latest release (0.9.3 'pretty-fragrant-rye'): 
+To install the latest release (0.9.4 'pretty-fragrant-rye'): 
   
 ```{r eval = FALSE}
 library(remotes) # for install_github

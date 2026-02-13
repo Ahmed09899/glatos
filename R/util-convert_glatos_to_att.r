@@ -78,7 +78,7 @@ convert_glatos_to_att <- function(
 
   tagMetadata <- unique(dplyr::tibble(
     # Start building Tag.Metadata table
-    Tag.ID = as.integer(detectionObj$animal_id),
+    Tag.ID = as.character(detectionObj$animal_id),
     Transmitter = as.factor(transmitters),
     Common.Name = as.factor(detectionObj$common_name_e)
   ))
@@ -100,7 +100,7 @@ convert_glatos_to_att <- function(
 
   releaseData <- dplyr::tibble(
     # Get the rest from detectionObj
-    Tag.ID = as.integer(detectionObj$animal_id),
+    Tag.ID = as.character(detectionObj$animal_id),
     Tag.Project = as.factor(detectionObj$glatos_project_transmitter),
     Release.Latitude = detectionObj$release_latitude,
     Release.Longitude = detectionObj$release_longitude,

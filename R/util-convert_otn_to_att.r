@@ -319,17 +319,9 @@ query_worms_common <- function(commonName, silent = FALSE) {
 }
 
 convert_sex <- function(sex) {
-  sapply(
-    sex,
-    FUN = function(.) {
-      if (toupper(.) %in% c("F", "FEMALE")) {
-        return("FEMALE")
-      }
-      if (toupper(.) %in% c("M", "MALE")) {
-        return("MALE")
-      }
-      return(.)
-    },
-    USE.NAMES = FALSE
+  data.table::fcase(
+    grepl("^f$|^female$", sex, ignore.case = TRUE), "FEMALE",
+    grepl("^m$|^male$", sex, ignore.case = TRUE), "MALE",
+    default = as.character(sex)
   )
 }
