@@ -91,3 +91,21 @@
       5 POINT (-87.83445 48.69117)
       6 POINT (-87.95955 48.72632)
 
+# sf input, sf output gives expected result with non-default init_pos and missing cartesianCRS (issue 277)
+
+    Code
+      sfin_sfout
+    Output
+      Simple feature collection with 6 features and 0 fields
+      Geometry type: POINT
+      Dimension:     XY
+      Bounding box:  xmin: 832597 ymin: 1024974 xmax: 857297.5 ymax: 1056453
+      Projected CRS: NAD83 / Great Lakes and St Lawrence Albers
+                        geometry
+      1   POINT (832597 1048244)
+      2 POINT (838307.6 1056453)
+      3 POINT (847638.5 1052857)
+      4 POINT (853177.5 1044531)
+      5 POINT (854868.4 1034675)
+      6 POINT (857297.5 1024974)
+

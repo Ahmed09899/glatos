@@ -1,5 +1,18 @@
 ----
 
+# glatos 0.9.5 (2026-03-25)
+
+
+### Bug fixes
+
+- Fixed bug in `crw_in_polygon()` that caused failure with error with 
+non-default initPos and missing cartesianCRS arguments when crs of input 
+polyg is cartesian.
+  - fixes [issue #277](https://github.com/ocean-tracking-network/glatos/issues/277)
+
+
+----
+
 # glatos 0.9.4 (2026-02-13)
 
 

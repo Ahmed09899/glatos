@@ -217,7 +217,7 @@ crw_in_polygon <- function(
   crs_cartesian <- sf::st_crs(cartesianCRS)
 
   # Set crs_cartesian = crs_input if Cartesian and cartesianCRS missing
-  if (is.na(crs_cartesian) & isTRUE(crs_in$IsGeographic)) {
+  if (is.na(crs_cartesian) & isFALSE(crs_in$IsGeographic)) {
     crs_cartesian <- crs_in
   }
 
