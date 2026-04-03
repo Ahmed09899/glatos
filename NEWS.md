@@ -1,5 +1,17 @@
 ----
 
+# glatos 0.9.6 (2026-04-03)
+
+
+### Bug fixes
+
+- Fixed bug in `read_glatos_workbook()` that caused failure when GLATOS workbook
+file contains project-specific sheets and `read_all = TRUE`.
+  - fixes [issue #278](https://github.com/ocean-tracking-network/glatos/issues/278)
+
+
+----
+
 # glatos 0.9.5 (2026-03-25)
 
 

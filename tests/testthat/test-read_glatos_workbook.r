@@ -40,6 +40,9 @@ test_that("receivers element gives expected result; v1.3 (read_all = TRUE)", {
   # Check if standard part of workbook is correct
   # RECEIVER is 32nd column
   expect_equal(wb13a[["receivers"]][, -32], walleye_workbook[["receivers"]])
+  
+  # Check if project-specific sheet is present
+  expect_true("my_receivers" %in% names(wb13a))
 })
 
 test_that("animals gives expected result; v1.3 (read_all = TRUE)", {
@@ -89,7 +92,7 @@ test_that("animals gives expected result; v1.4", {
 })
 
 
-# optional arg. read_all = TRUE
+# optional arg. read_all = TRUE 
 wb14a <- read_glatos_workbook(wb14_file, read_all = TRUE)
 
 test_that("receivers element gives expected result; v1.4 (read_all = TRUE)", {
@@ -102,6 +105,10 @@ test_that("receivers element gives expected result; v1.4 (read_all = TRUE)", {
   # Check if standard part of workbook is correct
   # RECEIVER is 32nd column
   expect_equal(wb14a[["receivers"]][, -32], walleye_workbook[["receivers"]])
+  
+  # Check if project-specific sheet is present
+  expect_true("my_receivers" %in% names(wb14a))
+  
 })
 
 test_that("animals gives expected result; v1.4 (read_all = TRUE)", {
@@ -115,3 +122,4 @@ test_that("animals gives expected result; v1.4 (read_all = TRUE)", {
   # Check if standard part of workbook is correct
   expect_equal(wb14a[["animals"]][, 1:55], walleye_workbook[["animals"]])
 })
+

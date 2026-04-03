@@ -70,7 +70,7 @@
 #'  If the output frame rate exceeds 30 fps, then a warning will alert the user
 #'  that some individual frame content may not be visible to users. Video
 #'  duration may also be controlled by setting the \code{framerate} argument of
-#'  \link[=encoding]{av::av_encode_video}. See \code{...} above.
+#'  [av::av_encode_video]. See \code{...} above.
 #'
 #' @return One video animation will be written disk and the path and file name
 #'  will be returned.

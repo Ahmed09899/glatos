@@ -143,12 +143,9 @@ read_glatos_workbook <- function(
   wb_version = NULL,
   simplify = TRUE
 ) {
+  
   # See version-specific file specifications
   # internal glatos_workbook_spec in R/sysdata.r
-
-  # to avoid R CMD CHECK note "undefined global functions or variables"
-  extra_sheets <- NULL
-
 
   # Get and check version if specified
   wb_version <- identify_workbook_version(
@@ -159,9 +156,9 @@ read_glatos_workbook <- function(
 
   #-Workbook v1.3, v1.4--------------------------------------------------------------
   if (wb_version %in% c("1.3", "1.4")) {
+    
     # Get sheet names in external file
     wb_sheets <- readxl::excel_sheets(wb_file)
-
 
     # Subset sheet names to read
     sheets_to_read <-
@@ -170,10 +167,29 @@ read_glatos_workbook <- function(
       } else {
         wb_sheets[tolower(wb_sheets) %in% names(glatos_workbook_schema$v1.3)]
       }
+    
+    # Identify extra (project-specific) sheets
+    extra_sheets <- setdiff(tolower(sheets_to_read), 
+                            names(glatos_workbook_schema$v1.3))
+    
+    # Check that extra sheet names do not match any standard sheet names
+    invalid_sheet_names <- 
+      if(simplify){ intersect(extra_sheets, 
+                                      c("metadata",
+                                        "animals",
+                                        "receivers"))
+      } else { NULL }
 
+    if(length(invalid_sheet_names) > 0) stop("When `read_all = TRUE` and ",
+                                              "`simplify = TRUE`, ",
+                                             "a project specific sheet cannot ",
+                                             "be named 'metadata', 'animals' ",
+                                             "or 'receivers'.", 
+                                             call. = FALSE)
+      
 
     # Preallocate glatos_workbook object
-    wb <- setNames(
+    wb <- stats::setNames(
       vector("list", length(sheets_to_read)),
       tolower(sheets_to_read)
     )
@@ -189,8 +205,10 @@ read_glatos_workbook <- function(
       value = TRUE,
       invert = TRUE
     )
+    
 
     for (i in 1:length(sheets_to_read)) {
+    
       schema_i <- glatos_workbook_schema[["v1.3"]][[tolower(sheets_to_read[i])]]
 
       # Specify first row to read (with headers)
@@ -202,6 +220,8 @@ read_glatos_workbook <- function(
       # Specify last column to read (based on 'read_all' arg)
       xl_last_col <- if (read_all) NA_integer_ else nrow(schema_i)
 
+      # is the ith sheet an extra?
+      extra_sheet_i <- tolower(sheets_to_read[i]) %in% extra_sheets
 
       # Read sheet data
       sheet_i <-
@@ -209,13 +229,13 @@ read_glatos_workbook <- function(
           readxl::read_excel(
             wb_file,
             sheet = sheets_to_read[i],
-            range = readxl::cell_limits(
+            range = if(extra_sheet_i) NULL else readxl::cell_limits(
               ul = c(xl_first_row, 1),
               lr = c(NA, xl_last_col)
             ),
-            col_types = "list",
+            col_types = if(extra_sheet_i) NULL else "list", 
             na = c("", "NA"),
-            n_max = 0,
+            #n_max = 0,
             guess_max = 1048576,
             .name_repair = "minimal"
           ),
@@ -250,7 +270,7 @@ read_glatos_workbook <- function(
           c(
             err_i,
             paste0(
-              "In sheet '", sheets_to_read[i], "':",
+              "\n\nIn sheet '", sheets_to_read[i], "':",
               "\n Duplicate column names are not allowed: \n  '",
               paste0(dupl_cols, collapse = "'\n  '"), "'\n"
             )
@@ -267,187 +287,198 @@ read_glatos_workbook <- function(
           c(
             err_i,
             paste0(
-              "In sheet '", sheets_to_read[i], "':",
+              "\n\nIn sheet '", sheets_to_read[i], "':",
               "\n Required columns not found: \n  '",
               paste0(missing_cols, collapse = "'\n  '"), "'\n"
             )
           )
       }
 
-      # Preallocate new object for parsed/cast values
-      # keep as tibble here to preserve structure
-      sheet_i2 <- sheet_i[]
+      
+      # Check and cast standard columns in standard sheets
+      
+      if(tolower(sheets_to_read[i]) %in% names(glatos_workbook_schema$v1.3)){
 
-
-      # Add attribute for warnings and errors
-      # warnings are warning_cast_to_check
-      # errors are error_input_class_skipped and error_cast_failed
-
-      attr(sheet_i2, "warning_cast_to_check") <- list()
-      attr(sheet_i2, "error_input_class_skipped") <- list()
-      attr(sheet_i2, "error_cast_failed") <- list()
-
-
-      # Coerce by expected column type
-
-      # character
-      char_cols <- col_names_i[tolower(col_names_i) %in%
-        with(schema_i, name[type == "character"])]
-
-      for (j in char_cols) {
-        sheet_i2[[j]] <-
-          if (nrow(sheet_i) > 0) {
-            cast(sheet_i[[j]],
-              new_class = "character"
-            )
-          } else {
-            as.character(sheet_i[[j]])
-          }
-      }
-
-
-      # numeric
-      num_cols <- col_names_i[tolower(col_names_i) %in%
-        with(schema_i, name[type == "numeric"])]
-
-      for (j in num_cols) {
-        sheet_i2[[j]] <-
-          if (nrow(sheet_i) > 0) {
-            cast(sheet_i[[j]],
-              new_class = "numeric"
-            )
-          } else {
-            as.numeric(sheet_i[[j]])
-          }
-      }
-
-
-      # POSIXct
-
-      # Only support POSIXct or character string that parses correctly
-      # Do not accept numeric input.
-
-      posix_cols <- col_names_i[tolower(col_names_i) %in%
-        with(schema_i, name[type == "POSIXct"])]
-
-      for (j in posix_cols) {
-        # cast existing POSIXct or character to character
-        sheet_i2[[j]] <-
-          if (nrow(sheet_i) > 0) {
-            cast(sheet_i[[j]],
-              new_class = "character",
-              old_class = c("character", "POSIXct")
-            )
-          } else {
-            as.character(sheet_i[[j]])
-          }
-
-
-        # cast character to POSIXct, enforce timezone, but return UTC
-
-        args_ij <- schema_i$args[schema_i$name == tolower(j)]
-
-        # strip spaces (for formatting consistency)
-        args_ij <- gsub(" ", "", args_ij)
-
-        if (grepl("tz=REFCOL", args_ij)) {
-          tz_col <- gsub("tz=REFCOL\\(|\\)", "", args_ij)
-
-          tz_ij <- paste0("US/", sheet_i[[grep(tz_col,
-            names(sheet_i),
-            ignore.case = TRUE
-          )]])
-        } else {
-          tz_ij <- gsub("tz=|tz=\"|\"", "", args_ij)
-        }
-
-        sheet_i2[[j]] <-
-          if (nrow(sheet_i) > 0) {
-            cast(sheet_i2[[j]],
-              new_class = "POSIXct",
-              old_class = c(
-                "character",
-                "POSIXct"
-              ),
-              tz = tz_ij
-            )
-          } else {
-            as.POSIXct(NA, tz = tz_ij)[0]
-          }
-
-        attr(sheet_i2[[j]], "tzone") <- "UTC"
-      } # end j
-
-
-      # Date
-
-      # Only support POSIXct or character string that parses correctly
-      # Do not accept numeric input.
-
-      date_cols <- col_names_i[tolower(col_names_i) %in%
-        with(schema_i, name[type == "Date"])]
-
-      for (j in date_cols) {
-        # cast existing POSIXct or character to character
-        sheet_i2[[j]] <-
-          if (nrow(sheet_i) > 0) {
-            cast(sheet_i[[j]],
-              new_class = "Date",
-              old_class = c("character", "POSIXct")
-            )
-          } else {
-            as.Date(NA)[0]
-          }
-      } # end j
-
-
-      # Handle 'extra' columns (not in schema)
-      # if multiple classes present in a column, cast to "highest-level" class
-
-      extra_cols <- col_names_i[!(tolower(col_names_i) %in% schema_i$name)]
-
-      if (read_all) {
-        supported_classes <- c(
-          "POSIXct",
-          "Date",
-          "numeric",
-          "character",
-          "logical"
-        )
-
-        for (j in extra_cols) {
-          types_ij <- unique(unlist(lapply(sheet_i[[j]], class)))
-
-          # expect 'highest-level' observed class
-          type_exp <- intersect(supported_classes, types_ij)[1]
-
-          # cast to type_exp
-          # but if type_exp is POSIXct, cast to character
-
+        # Preallocate new object for parsed/cast values
+        # keep as tibble here to preserve structure
+        sheet_i2 <- sheet_i[]
+        
+        # Add attribute for warnings and errors
+        # warnings are warning_cast_to_check
+        # errors are error_input_class_skipped and error_cast_failed
+  
+        attr(sheet_i2, "warning_cast_to_check") <- list()
+        attr(sheet_i2, "error_input_class_skipped") <- list()
+        attr(sheet_i2, "error_cast_failed") <- list()
+  
+  
+        # Coerce by expected column type
+  
+        # character
+        char_cols <- col_names_i[tolower(col_names_i) %in%
+          with(schema_i, name[type == "character"])]
+  
+        for (j in char_cols) {
           sheet_i2[[j]] <-
-            if (nrow(sheet_i2) > 0) {
+            if (nrow(sheet_i) > 0) {
               cast(sheet_i[[j]],
-                new_class = ifelse(type_exp == "POSIXct",
-                  "character",
-                  type_exp
-                )
+                new_class = "character"
               )
-            } # if no rows, default to char
-            else {
-              as.character(NA)[0]
+            } else {
+              as.character(sheet_i[[j]])
+            }
+        }
+  
+  
+        # numeric
+        num_cols <- col_names_i[tolower(col_names_i) %in%
+          with(schema_i, name[type == "numeric"])]
+  
+        for (j in num_cols) {
+          sheet_i2[[j]] <-
+            if (nrow(sheet_i) > 0) {
+              cast(sheet_i[[j]],
+                new_class = "numeric"
+              )
+            } else {
+              as.numeric(sheet_i[[j]])
+            }
+        }
+  
+  
+        # POSIXct
+  
+        # Only support POSIXct or character string that parses correctly
+        # Do not accept numeric input.
+  
+        posix_cols <- col_names_i[tolower(col_names_i) %in%
+          with(schema_i, name[type == "POSIXct"])]
+  
+        for (j in posix_cols) {
+          # cast existing POSIXct or character to character
+          sheet_i2[[j]] <-
+            if (nrow(sheet_i) > 0) {
+              cast(sheet_i[[j]],
+                new_class = "character",
+                old_class = c("character", "POSIXct")
+              )
+            } else {
+              as.character(sheet_i[[j]])
+            }
+  
+  
+          # cast character to POSIXct, enforce timezone, but return UTC
+  
+          args_ij <- schema_i$args[schema_i$name == tolower(j)]
+  
+          # strip spaces (for formatting consistency)
+          args_ij <- gsub(" ", "", args_ij)
+  
+          if (grepl("tz=REFCOL", args_ij)) {
+            tz_col <- gsub("tz=REFCOL\\(|\\)", "", args_ij)
+  
+            tz_ij <- paste0("US/", sheet_i[[grep(tz_col,
+              names(sheet_i),
+              ignore.case = TRUE
+            )]])
+          } else {
+            tz_ij <- gsub("tz=|tz=\"|\"", "", args_ij)
+          }
+  
+          sheet_i2[[j]] <-
+            if (nrow(sheet_i) > 0) {
+              cast(sheet_i2[[j]],
+                new_class = "POSIXct",
+                old_class = c(
+                  "character",
+                  "POSIXct"
+                ),
+                tz = tz_ij
+              )
+            } else {
+              as.POSIXct(NA, tz = tz_ij)[0]
+            }
+  
+          attr(sheet_i2[[j]], "tzone") <- "UTC"
+        } # end j
+  
+  
+        # Date
+  
+        # Only support POSIXct or character string that parses correctly
+        # Do not accept numeric input.
+  
+        date_cols <- col_names_i[tolower(col_names_i) %in%
+          with(schema_i, name[type == "Date"])]
+  
+        for (j in date_cols) {
+          # cast existing POSIXct or character to character
+          sheet_i2[[j]] <-
+            if (nrow(sheet_i) > 0) {
+              cast(sheet_i[[j]],
+                new_class = "Date",
+                old_class = c("character", "POSIXct")
+              )
+            } else {
+              as.Date(NA)[0]
             }
         } # end j
+  
+  
+        # Handle 'extra' columns (not in schema)
+        # if multiple classes present in a column, cast to "highest-level" class
+  
+        extra_cols <- col_names_i[!(tolower(col_names_i) %in% schema_i$name)]
+  
+        if (read_all) {
+          supported_classes <- c(
+            "POSIXct",
+            "Date",
+            "numeric",
+            "character",
+            "logical"
+          )
+  
+          for (j in extra_cols) {
+            types_ij <- unique(unlist(lapply(sheet_i[[j]], class)))
+  
+            # expect 'highest-level' observed class
+            type_exp <- intersect(supported_classes, types_ij)[1]
+  
+            # cast to type_exp
+            # but if type_exp is POSIXct, cast to character
+  
+            sheet_i2[[j]] <-
+              if (nrow(sheet_i2) > 0) {
+                cast(sheet_i[[j]],
+                  new_class = ifelse(type_exp == "POSIXct",
+                    "character",
+                    type_exp
+                  )
+                )
+              } # if no rows, default to char
+              else {
+                as.character(NA)[0]
+              }
+          } # end j
+        } else {
+          std_names_i <- names(sheet_i2)[tolower(names(sheet_i2)) %in%
+            schema_i$name]
+  
+          sheet_i2 <- sheet_i2[, std_names_i]
+        }
+
+        # Append to wb
+        wb[[tolower(sheets_to_read[i])]] <- as.data.frame(sheet_i2)
+        
+        
       } else {
-        std_names_i <- names(sheet_i2)[tolower(names(sheet_i2)) %in%
-          schema_i$name]
-
-        sheet_i2 <- sheet_i2[, std_names_i]
+        
+        # Append to wb
+        wb[[tolower(sheets_to_read[i])]] <- as.data.frame(sheet_i)
+        
       }
-
-
-      # Append to wb
-      wb[[tolower(sheets_to_read[i])]] <- as.data.frame(sheet_i2)
-
+      
 
       if (simplify) {
         # Change names of all standard columns to lowercase
@@ -821,7 +852,7 @@ cast <- function(x,
       paste0(
         paste(x[1]:min(length(x), n), collapse = ", "),
         ", ...",
-        tail(x, 1),
+        utils::tail(x, 1),
         " (+ ", length(x) - n - 1, " others)"
       )
     }
