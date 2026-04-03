@@ -94,7 +94,7 @@ specified duration, so the output duration may differ from that specified.
 If the output frame rate exceeds 30 fps, then a warning will alert the user
 that some individual frame content may not be visible to users. Video
 duration may also be controlled by setting the \code{framerate} argument of
-\link[=encoding]{av::av_encode_video}. See \code{...} above.
+\link[av:encoding]{av::av_encode_video}. See \code{...} above.
 }
 \examples{
 \dontrun{
