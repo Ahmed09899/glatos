@@ -160,7 +160,7 @@ test_that("sf input, sf output gives expected result", {
 
 test_that("sf input, sf output gives expected result with non-default init_pos and missing cartesianCRS (issue 277)", {
   set.seed(30)
-  
+
   expect_s3_class(
     sfin_sfout <- crw_in_polygon(
       polyg = sf::st_transform(great_lakes_polygon, crs = 3175),
@@ -173,9 +173,9 @@ test_that("sf input, sf output gives expected result with non-default init_pos a
     ),
     "sf"
   )
-  
+
   expect_equal(dim(sfin_sfout), c(6, 1))
-  
+
   expect_snapshot(
     sfin_sfout
   )
