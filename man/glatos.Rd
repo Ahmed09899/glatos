@@ -116,6 +116,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Christopher Holbrook \email{cholbrook@glfc.org}
   \item Todd Hayden
   \item Thomas Binder
   \item Jon Pye
