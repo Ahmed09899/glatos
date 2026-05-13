@@ -560,11 +560,13 @@ read_glatos_workbook <- function(
       )
     )
 
+    wb$recovery$rec_row_id <- 1:nrow(wb$recovery) + xl_first_row
+    
     wb2 <- with(wb, list(
       metadata = project,
       animals = tagging,
       receivers = merge(
-        deployment,
+        wb$deployment,
         recovery[
           ,
           unique(c(
@@ -572,18 +574,34 @@ read_glatos_workbook <- function(
             setdiff(names(recovery), names(deployment))
           ))
         ],
-        by.x = c(
-          "glatos_project", "glatos_array", "station_no",
-          "consecutive_deploy_no", "ins_serial_no"
-        ),
-        by.y = c(
-          "glatos_project", "glatos_array", "station_no",
-          "consecutive_deploy_no", "ins_serial_number"
-        ),
+        by.x = ins_key$by.x,
+        by.y = ins_key$by.y,
         all.x = TRUE, all.y = TRUE
       )
     ))
 
+    # Check for recoveries without matching deployments
+    rec_missing_dep_rows <- which(is.na(wb2$receivers$glatos_deploy_date_time))
+    
+    n_rmdr <- length(rec_missing_dep_rows)
+    
+    if(n_rmdr > 0) {
+      
+      disp_rmdr <- if(n_rmdr > 6) paste0(
+        paste0(rec_missing_dep_rows[1:5], collapse = ", "), 
+        "...", tail(rec_missing_dep_rows, 1), " (+ ", n_rmdr - 6, " more).") else 
+          paste0(rec_missing_dep_rows, collapse = ", ")
+                                         
+      
+      warning(n_rmdr, " row(s) in 'Recovery' sheet have no matching record in",
+              " 'Deployment' sheet:",
+              "\n See Recovery sheet, rows: ", disp_rmdr)
+    }
+    
+    # drop temp col
+    wb2$receivers$rec_row_id <- NULL
+    
+    
     # add location descriptions
     # note that sort arg prevents error with 0 rows in x, y
     wb2$receivers <- merge(
