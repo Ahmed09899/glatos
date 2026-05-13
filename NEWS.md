@@ -1,6 +1,6 @@
 ----
 
-# glatos 0.9.7 (2026-05-13-26)
+# glatos 0.9.7 (2026-05-13)
 
 
 ### Bug fixes
@@ -12,6 +12,10 @@ invoked by devtools v. 2.5.
 - Add warnings message in `read_glatos_workbook()` when Recovery sheet 
 contains records that do not match any records in Deployment sheet.
 
+- Add `validate` argument to `read_otn_deployments()` to suppress validation by 
+`as_glatos_receivers()`. When `validate = FALSE`, behavior is consistent with 
+glatos v.0.8.0 and earlier.
+  - related to [issue #202](https://github.com/ocean-tracking-network/glatos/issues/202)
 
 ----
 

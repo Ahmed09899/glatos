@@ -8,7 +8,8 @@ read_otn_deployments(
   deployment_file,
   deploy_date_col = "deploy_date",
   recovery_date_col = "recovery_date",
-  last_download_col = "last_download"
+  last_download_col = "last_download",
+  validate = TRUE
 )
 }
 \arguments{
@@ -24,6 +25,9 @@ name containing recovery_date. Defaults to "recovery_date."}
 
 \item{last_download_col}{A character string representing the column
 name containing the last_download date. Defaults to "last_download."}
+
+\item{validate}{logical, indicates if column names and classes should be
+checked against requirements. Passed to \code{\link[=as_glatos_receivers]{as_glatos_receivers()}}.}
 }
 \value{
 A data.frame of class \code{glatos_receivers} that includes OTN
