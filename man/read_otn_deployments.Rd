@@ -8,7 +8,8 @@ read_otn_deployments(
   deployment_file,
   deploy_date_col = "deploy_date",
   recovery_date_col = "recovery_date",
-  last_download_col = "last_download"
+  last_download_col = "last_download",
+  validate = TRUE
 )
 }
 \arguments{
@@ -24,6 +25,9 @@ name containing recovery_date. Defaults to "recovery_date."}
 
 \item{last_download_col}{A character string representing the column
 name containing the last_download date. Defaults to "last_download."}
+
+\item{validate}{logical, indicates if column names and classes should be
+checked against requirements. Passed to \code{\link[=as_glatos_receivers]{as_glatos_receivers()}}.}
 }
 \value{
 A data.frame of class \code{glatos_receivers} that includes OTN
@@ -35,7 +39,7 @@ a data.frame of class \code{glatos_receivers}.
 }
 \details{
 Data are loaded using \code{\link[data.table:fread]{data.table::fread()}} package and timestamps
-are coerced to POSIXct using \code{\link[lubridate:parse_date_time]{lubridate::fast_strptime()}}. All
+are coerced to POSIXct using \code{\link[lubridate:fast_strptime]{lubridate::fast_strptime()}}. All
 times must be in UTC timezone per GLATOS standard.
 
 Column names are changed to match GLATOS standard columns when possible.

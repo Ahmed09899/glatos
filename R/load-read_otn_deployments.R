@@ -15,6 +15,9 @@
 #'
 #' @param last_download_col A character string representing the column
 #'  name containing the last_download date. Defaults to "last_download."
+#' 
+#' @param validate logical, indicates if column names and classes should be 
+#' checked against requirements. Passed to [as_glatos_receivers()].
 #'
 #' @details
 #' Data are loaded using [data.table::fread()] package and timestamps
@@ -46,7 +49,8 @@ read_otn_deployments <- function(
   deployment_file,
   deploy_date_col = "deploy_date",
   recovery_date_col = "recovery_date",
-  last_download_col = "last_download"
+  last_download_col = "last_download",
+  validate = TRUE
 ) {
   ##  Declare global variables for NSE & R CMD check
   deploy_date <- recovery_date <- last_download <- NULL
@@ -113,6 +117,6 @@ read_otn_deployments <- function(
     old = otn_deployments_schema$name,
     new = otn_deployments_schema$mapping
   )
-  dtc <- glatos_receivers(dtc)
+  dtc <- glatos_receivers(dtc, validate = validate)
   return(dtc)
 }
