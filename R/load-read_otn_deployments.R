@@ -15,8 +15,8 @@
 #'
 #' @param last_download_col A character string representing the column
 #'  name containing the last_download date. Defaults to "last_download."
-#' 
-#' @param validate logical, indicates if column names and classes should be 
+#'
+#' @param validate logical, indicates if column names and classes should be
 #' checked against requirements. Passed to [as_glatos_receivers()].
 #'
 #' @details
